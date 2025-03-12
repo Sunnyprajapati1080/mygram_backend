@@ -41,7 +41,7 @@ router.post(
 
       if (req.file) {
         try {
-          const compressedImage = await sharp(req.file.buffer).rotate().jpeg({ quality: 100 }).toBuffer();
+          const compressedImage = await sharp(req.file.buffer).rotate().resize({ width: 1000 }).jpeg({ quality: 80, mozjpeg: true }).toBuffer();
           const result = await new Promise((resolve, reject) =>
             cloudinary.uploader.upload_stream({ folder: "instagram_clone", resource_type: "image" }, (err, res) =>
               err ? reject(err) : resolve(res)
