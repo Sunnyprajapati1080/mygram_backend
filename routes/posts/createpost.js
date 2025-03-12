@@ -26,7 +26,8 @@ router.post("/", fetchUser, upload.single("img"), async (req, res) => {
     // Compress image using sharp
     const compressedImage = await sharp(req.file.buffer)
       .rotate()
-      .jpeg({ quality: 80 }) // Convert to JPEG with 80% quality
+      .resize({ width: 1000 })
+      .jpeg({ quality: 80, mozjpeg: true })
       .toBuffer();
 
     // Upload compressed image to Cloudinary
